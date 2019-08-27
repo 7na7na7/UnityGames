@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class TestMove
+{
+    public string name;
+    public string direction;
+}
+public class test : MonoBehaviour
+{
+    [SerializeField] 
+    public string direction; 
+    public TestMove[] move;
+    private OrderManager theOrder;
+    void Start()
+    {
+        theOrder = FindObjectOfType<OrderManager>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "player")
+        {
+            Debug.Log("닿음");
+            theOrder.PreLoadCharacter();
+            /*
+            for (int i = 0; i < move.Length; i++) //move의 값만큼 반복
+            {
+                theOrder.Move(move[i].name,move[i].direction);
+            }
+            */
+            theOrder.Turn("npc1",direction); 
+        }
+    }
+}
